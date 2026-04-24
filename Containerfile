@@ -72,15 +72,6 @@ RUN dnf install -y \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 5: Herramientas adicionales
-# ══════════════════════════════════════════════════════════════════
-
-RUN dnf install -y \
-    amdgpu-top && \
-    dnf clean all && \
-    ostree container commit
-
-# ══════════════════════════════════════════════════════════════════
 # BLOQUE 6: Archivos de configuración
 # ══════════════════════════════════════════════════════════════════
 
