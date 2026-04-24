@@ -10,7 +10,7 @@
 [org.gnome.desktop.interface]
 gtk-theme='Nordic'
 icon-theme='Papirus-Dark'
-cursor-theme='Nordic-cursors'
+cursor-theme='Adwaita'
 cursor-size=24
 color-scheme='prefer-dark'
 font-name='Roboto 11'
@@ -29,14 +29,14 @@ name='Nordic'
 
 # ── Wallpaper ─────────────────────────────────────────────────────
 [org.gnome.desktop.background]
-picture-uri='file:///usr/share/backgrounds/hecate-os/default.jpg'
-picture-uri-dark='file:///usr/share/backgrounds/hecate-os/default-dark.jpg'
+picture-uri='file:///usr/share/backgrounds/hecate-os/fullmoon.png'
+picture-uri-dark='file:///usr/share/backgrounds/hecate-os/fullmoon.png'
 picture-options='zoom'
 primary-color='#2E3440'
 secondary-color='#2E3440'
 
 [org.gnome.desktop.screensaver]
-picture-uri='file:///usr/share/backgrounds/hecate-os/default-dark.jpg'
+picture-uri='file:///usr/share/backgrounds/hecate-os/fullmoon.png'
 primary-color='#2E3440'
 
 # ── Window manager ────────────────────────────────────────────────
@@ -61,8 +61,16 @@ enabled-extensions=[
   'user-theme@gnome-shell-extensions.gcampax.github.com',
   'dash-to-dock@micxgx.gmail.com',
   'gsconnect@andyholmes.github.io',
-  'Logo-menu@Aryan_k',
-  'caffeine@patapon.info'
+  'caffeine@patapon.info',
+  'just-perfection-desktop@just-perfection',
+  'weatheroclock@CleoMenezesJr.github.io'
+]
+disabled-extensions=[
+  'apps-menu@gnome-shell-extensions.gcampax.github.com',
+  'places-menu@gnome-shell-extensions.gcampax.github.com',
+  'window-list@gnome-shell-extensions.gcampax.github.com',
+  'launch-new-instance@gnome-shell-extensions.gcampax.github.com',
+  'background-logo@fedorahosted.org'
 ]
 favorite-apps=[
   'org.gnome.Nautilus.desktop',
@@ -70,21 +78,11 @@ favorite-apps=[
   'steam.desktop',
   'net.davidotek.pupgui2.desktop',
   'org.blender.Blender.desktop',
-  'bazaar.desktop',
+  'io.github.kolunmi.Bazaar.desktop',
   'org.gnome.Terminal.desktop'
 ]
 disable-user-extensions=false
 
-# ── Logo Menu extension ───────────────────────────────────────────
-[org.gnome.shell.extensions.Logo-menu]
-# 99 = custom icon desde /usr/share/pixmaps/
-menu-button-icon-image=99
-symbolic-icon=false
-menu-button-icon-size=20
-# Bazaar como software centre — aparece en el Logo Menu
-hide-softwarecentre=false
-software-centre-app='bazaar.desktop'
-show-activities-button=false
 
 # ── Dash to Dock ─────────────────────────────────────────────────
 [org.gnome.shell.extensions.dash-to-dock]

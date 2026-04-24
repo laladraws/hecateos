@@ -46,16 +46,18 @@ RUN dnf install -y \
     gnome-shell-extension-user-theme \
     gnome-shell-extension-dash-to-dock \
     gnome-shell-extension-gsconnect \
-    gnome-shell-extension-caffeine && \
+    gnome-shell-extension-caffeine \
+    gnome-shell-extension-just-perfection \
+    gnome-weather \
+    git \
+    unzip && \
     dnf clean all && \
     ostree container commit
 
 # Weather O'Clock desde GitHub
-RUN dnf install -y git && \
-    git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroclock && \
-    mkdir -p /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io && \
-    cp -r /tmp/weatheroclock/* \
-      /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io/ && \
+RUN git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroclock && \
+    cp -r /tmp/weatheroclock/weatheroclock@CleoMenezesJr.github.io \
+      /usr/share/gnome-shell/extensions/ && \
     rm -rf /tmp/weatheroclock && \
     ostree container commit
 
@@ -84,7 +86,24 @@ RUN dnf install -y \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 5: Archivos de configuración
+# BLOQUE 5: Flatpaks esenciales y remover GNOME Software
+# ══════════════════════════════════════════════════════════════════
+
+RUN dnf remove -y gnome-software gnome-software-rpm-ostree || true && \
+    dnf clean all && \
+    ostree container commit
+
+RUN flatpak remote-add --system --if-not-exists flathub \
+      https://dl.flathub.org/repo/flathub.flatpakrepo && \
+    flatpak install --system -y flathub \
+      io.github.kolunmi.Bazaar \
+      com.mattjakeman.ExtensionManager \
+      com.github.tchx84.Flatseal \
+      io.github.flattool.Warehouse && \
+    ostree container commit
+
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 6: Archivos de configuración
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/share/pixmaps/hecate-os.svg \
@@ -105,15 +124,23 @@ COPY config/files/etc/profile.d/hecate-os-fastfetch.sh \
 
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 6: Compilar schemas y dconf
+# BLOQUE 7: Compilar schemas y dconf
 # ══════════════════════════════════════════════════════════════════
 
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     dconf update && \
+    ostree container commit# Symlink del logo para GNOME About y GDM
+    
+RUN ln -sf /usr/share/pixmaps/hecate-os.svg \
+    /usr/share/icons/hicolor/scalable/apps/org.gnome.Software.svg && \
+    ln -sf /usr/share/pixmaps/hecate-os.svg \
+    /usr/share/pixmaps/fedora-logo.svg && \
     ostree container commit
 
+
+
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 7: Flatpaks (se instalan en primer boot)
+# BLOQUE 8: Flatpaks (se instalan en primer boot)
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/flatpaks.txt /usr/share/ublue-os/firstboot/flatpaks
