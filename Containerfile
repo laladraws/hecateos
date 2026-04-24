@@ -69,8 +69,7 @@ RUN dnf install -y \
 # BLOQUE 4: Gaming
 # ══════════════════════════════════════════════════════════════════
 
-RUN dnf copr enable -y wehagy/protonplus && \
-    dnf install -y \
+RUN dnf install -y \
     steam \
     gamemode \
     mangohud \
