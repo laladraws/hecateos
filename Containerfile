@@ -18,17 +18,6 @@ LABEL org.opencontainers.image.version="1.0"
 # ── Identidad del sistema operativo ──────────────────────────────
 COPY config/files/usr/lib/os-release /usr/lib/os-release
 
-# ══════════════════════════════════════════════════════════════════
-# BLOQUE 1: Repositorios adicionales
-# ══════════════════════════════════════════════════════════════════
-
-RUN rpm-ostree install \
-    # Copr para Nordic theme y extensiones extras
-    'dnf-command(copr)' \
-    --idempotent && \
-    # Nordic GTK theme desde Copr
-    rpm-ostree copr enable yanboyang013/Nordic && \
-    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 2: Tema visual — Nordic + iconos
