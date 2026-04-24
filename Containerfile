@@ -90,9 +90,6 @@ COPY config/files/etc/environment.d/50-rocm.conf \
 COPY config/files/etc/profile.d/hecate-os-fastfetch.sh \
      /etc/profile.d/hecate-os-fastfetch.sh
 
-COPY config/files/usr/share/anaconda/kickstart/hecate-os.ks \
-     /usr/share/anaconda/kickstart/hecate-os.ks
-
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 7: Compilar schemas y dconf
 # ══════════════════════════════════════════════════════════════════
