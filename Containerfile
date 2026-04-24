@@ -51,12 +51,12 @@ RUN dnf install -y \
     ostree container commit
 
 # Weather O'Clock desde GitHub
-RUN curl -Lo /tmp/weatheroclock.zip \
-      "https://github.com/CleoMenezesJr/weather-oclock/releases/latest/download/weatheroclock@CleoMenezesJr.github.io.zip" && \
+RUN dnf install -y git && \
+    git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroclock && \
     mkdir -p /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io && \
-    unzip /tmp/weatheroclock.zip \
-      -d /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io/ && \
-    rm /tmp/weatheroclock.zip && \
+    cp -r /tmp/weatheroclock/* \
+      /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io/ && \
+    rm -rf /tmp/weatheroclock && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
@@ -102,8 +102,7 @@ COPY config/files/etc/environment.d/50-rocm.conf \
 COPY config/files/etc/profile.d/hecate-os-fastfetch.sh \
      /etc/profile.d/hecate-os-fastfetch.sh
 
-COPY config/files/usr/share/backgrounds/hecate-os/ \
-     /usr/share/backgrounds/hecate-os/
+
 
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 6: Compilar schemas y dconf
