@@ -34,17 +34,20 @@ RUN rpm-ostree install \
 # BLOQUE 2: Tema visual — Nordic + iconos
 # ══════════════════════════════════════════════════════════════════
 
+
 RUN rpm-ostree install \
-    # Tema Nordic GTK (oscuro, estilo Nord color palette)
-    nordic-theme \
-    # Iconos Papirus con variante Dark (combinan perfecto con Nordic)
     papirus-icon-theme \
-    # Cursor Nordic
-    nordic-cursor-theme \
-    # Fuentes
     jetbrains-mono-fonts \
     google-roboto-fonts \
     --idempotent && \
+    ostree container commit
+
+# Nordic theme desde GitHub directamente (sin Copr)
+RUN mkdir -p /usr/share/themes && \
+    curl -Lo /tmp/nordic.tar.xz \
+      "https://github.com/EliverLara/Nordic/releases/latest/download/Nordic.tar.xz" && \
+    tar -xf /tmp/nordic.tar.xz -C /usr/share/themes/ && \
+    rm /tmp/nordic.tar.xz && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
