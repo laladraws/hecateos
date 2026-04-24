@@ -119,7 +119,8 @@ COPY config/files/etc/environment.d/50-rocm.conf \
 COPY config/files/etc/profile.d/hecate-os-fastfetch.sh \
      /etc/profile.d/hecate-os-fastfetch.sh
 
-
+COPY config/files/usr/share/backgrounds/hecate-os/ \
+     /usr/share/backgrounds/hecate-os/
 
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 7: Compilar schemas y dconf
