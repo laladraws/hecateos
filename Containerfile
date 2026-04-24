@@ -76,9 +76,7 @@ RUN dnf install -y \
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
-    amdgpu_top \
-    fastfetch \
-    tailscale && \
+    amdgpu-top && \
     dnf clean all && \
     ostree container commit
 
