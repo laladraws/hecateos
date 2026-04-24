@@ -71,9 +71,7 @@ RUN dnf install -y \
 
 RUN dnf install -y \
     steam \
-    gamemode \
     mangohud \
-    protonplus \
     blender && \
     dnf clean all && \
     ostree container commit
