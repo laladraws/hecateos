@@ -33,20 +33,26 @@ jobs:
         id: tags
         run: |
           TIMESTAMP=$(date +%Y%m%d)
-          echo "tags=latest,${FEDORA_VERSION},${FEDORA_VERSION}-${TIMESTAMP}" >> $GITHUB_OUTPUT
+          echo "tags=latest" >> $GITHUB_OUTPUT
+          echo "tag_version=${FEDORA_VERSION}" >> $GITHUB_OUTPUT
+          echo "tag_dated=${FEDORA_VERSION}-${TIMESTAMP}" >> $GITHUB_OUTPUT
 
       # ── Build ─────────────────────────────────────────────────────
+
       - name: Build image
         id: build
         uses: redhat-actions/buildah-build@v2
         with:
           containerfiles: ./Containerfile
           image: ${{ env.IMAGE_NAME }}
-          tags: ${{ steps.tags.outputs.tags }}
+          tags: |
+            latest
+            ${{ env.FEDORA_VERSION }}
+            ${{ env.FEDORA_VERSION }}-${{ steps.tags.outputs.tag_dated }}
           build-args: |
             FEDORA_VERSION=${{ env.FEDORA_VERSION }}
           oci: true
-
+          
       # ── Push ──────────────────────────────────────────────────────
       - name: Push to GHCR
         id: push
