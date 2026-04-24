@@ -37,24 +37,18 @@ RUN mkdir -p /usr/share/themes && \
 # BLOQUE 2: Extensiones de GNOME Shell
 # ══════════════════════════════════════════════════════════════════
 
+
 RUN dnf install -y \
     gnome-shell-extension-appindicator \
     gnome-shell-extension-blur-my-shell \
     gnome-shell-extension-user-theme \
     gnome-shell-extension-dash-to-dock \
     gnome-shell-extension-gsconnect \
-    gnome-shell-extension-caffeine && \
+    gnome-shell-extension-caffeine \
+    unzip && \
     dnf clean all && \
     ostree container commit
 
-# Logo Menu desde extensions.gnome.org (no está en repos de Fedora)
-RUN mkdir -p /usr/share/gnome-shell/extensions && \
-    curl -Lo /tmp/logomenu.zip \
-      "https://extensions.gnome.org/download-extension/Logo-menu%40Aryan_k.shell-extension.zip?shell_version=49" && \
-    mkdir -p /usr/share/gnome-shell/extensions/Logo-menu@Aryan_k && \
-    unzip /tmp/logomenu.zip -d /usr/share/gnome-shell/extensions/Logo-menu@Aryan_k/ && \
-    rm /tmp/logomenu.zip && \
-    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 3: Bazaar — remover GNOME Software
