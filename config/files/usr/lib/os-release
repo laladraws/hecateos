@@ -1,0 +1,17 @@
+NAME="HecateOS"
+PRETTY_NAME="HecateOS 1.0"
+ID=hecate-os
+ID_LIKE="fedora"
+VERSION="1.0"
+VERSION_ID="1"
+VERSION_CODENAME="persephone"
+PLATFORM_ID="platform:f43"
+HOME_URL="https://github.com/tu-usuario/hecate-os"
+SUPPORT_URL="https://github.com/tu-usuario/hecate-os/issues"
+BUG_REPORT_URL="https://github.com/tu-usuario/hecate-os/issues"
+LOGO="hecate-os"
+ANSI_COLOR="1;34"
+DEFAULT_HOSTNAME="hecate"
+# Necesario para compatibilidad con herramientas de Fedora
+REDHAT_SUPPORT_PRODUCT="Fedora"
+REDHAT_SUPPORT_PRODUCT_VERSION="43"

@@ -1,0 +1,27 @@
+# HecateOS — dconf system-wide configuration
+# Este archivo se compila con dconf update durante el build
+# Formato: clave = valor (sin quotes en strings, con quotes en listas)
+
+[org/gnome/desktop/interface]
+gtk-theme='Nordic'
+icon-theme='Papirus-Dark'
+cursor-theme='Nordic-cursors'
+color-scheme='prefer-dark'
+font-name='Roboto 11'
+monospace-font-name='JetBrains Mono 10'
+
+[org/gnome/shell]
+enabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'blur-my-shell@aunetx', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'gsconnect@andyholmes.github.io', 'Logo-menu@Aryan_k', 'caffeine@patapon.info']
+favorite-apps=['org.gnome.Nautilus.desktop', 'org.mozilla.firefox.desktop', 'steam.desktop', 'net.davidotek.pupgui2.desktop', 'org.blender.Blender.desktop', 'bazaar.desktop', 'org.gnome.Terminal.desktop']
+
+[org/gnome/shell/extensions/Logo-menu]
+menu-button-icon-image=99
+symbolic-icon=false
+software-centre-app='bazaar.desktop'
+hide-softwarecentre=false
+
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/hecate-os/default.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/hecate-os/default-dark.jpg'
+picture-options='zoom'
+primary-color='#2E3440'

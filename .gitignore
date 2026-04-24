@@ -1,0 +1,27 @@
+# HecateOS .gitignore
+
+# Llaves privadas de cosign — NUNCA commitear
+cosign.key
+*.key
+
+# Outputs locales de build
+output/
+build/
+*.iso
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# macOS
+.DS_Store
+
+# Archivos grandes de assets (usar Git LFS o CDN)
+*.png
+*.jpg
+*.jpeg
+*.webp
+# Excepción: el SVG del logo sí va en el repo
+!config/files/usr/share/pixmaps/hecate-os.svg

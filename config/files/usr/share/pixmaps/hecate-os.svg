@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  HecateOS Logo — placeholder minimalista
+  Reemplazá este archivo con tu logo definitivo.
+  Tamaño recomendado: 128x128 o SVG escalable.
+  Color base de la paleta Nord: #88C0D0 (Nord 8 / Frost)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B4252"/>
+      <stop offset="100%" stop-color="#2E3440"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fondo circular -->
+  <circle cx="64" cy="64" r="60" fill="url(#bg)" stroke="#4C566A" stroke-width="2"/>
+
+  <!-- H estilizada — letra de HecateOS -->
+  <text
+    x="64" y="82"
+    font-family="sans-serif"
+    font-size="64"
+    font-weight="700"
+    fill="#88C0D0"
+    text-anchor="middle"
+    dominant-baseline="auto"
+    letter-spacing="-2"
+  >H</text>
+
+  <!-- Anillo exterior decorativo -->
+  <circle cx="64" cy="64" r="56" fill="none" stroke="#88C0D0" stroke-width="1" stroke-dasharray="4 6" opacity="0.4"/>
+</svg>
