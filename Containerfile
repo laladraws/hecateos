@@ -1,9 +1,10 @@
+
 # ╔══════════════════════════════════════════════════════════════╗
 # ║                        HecateOS                             ║
-# ║        Custom immutable distro based on Bazzite/uBlue       ║
+# ║        Custom immutable distro based on uBlue Silverblue    ║
 # ║        AMD gaming + ROCm compute + Nordic aesthetic         ║
 # ╚══════════════════════════════════════════════════════════════╝
-ARG BASE_IMAGE="ghcr.io/ublue-os/bazzite"
+ARG BASE_IMAGE="ghcr.io/ublue-os/silverblue-main"
 ARG FEDORA_VERSION="43"
 
 FROM ${BASE_IMAGE}:${FEDORA_VERSION}
@@ -13,16 +14,18 @@ LABEL org.opencontainers.image.description="Custom immutable distro for AMD gami
 LABEL org.opencontainers.image.url="https://github.com/laladraws/hecateos"
 LABEL org.opencontainers.image.version="1.0"
 
+# ── Identidad ─────────────────────────────────────────────────────
 COPY config/files/usr/lib/os-release /usr/lib/os-release
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 1: Tema visual — Nordic + iconos
+# BLOQUE 1: Tema visual — Nordic + iconos + fuentes
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
     papirus-icon-theme \
     jetbrains-mono-fonts \
-    google-roboto-fonts && \
+    google-roboto-fonts \
+    unzip && \
     dnf clean all && \
     ostree container commit
 
@@ -37,24 +40,33 @@ RUN mkdir -p /usr/share/themes && \
 # BLOQUE 2: Extensiones de GNOME Shell
 # ══════════════════════════════════════════════════════════════════
 
-
 RUN dnf install -y \
     gnome-shell-extension-appindicator \
     gnome-shell-extension-blur-my-shell \
     gnome-shell-extension-user-theme \
     gnome-shell-extension-dash-to-dock \
     gnome-shell-extension-gsconnect \
-    gnome-shell-extension-caffeine \
-    unzip && \
+    gnome-shell-extension-caffeine && \
     dnf clean all && \
     ostree container commit
 
+# Weather O'Clock desde GitHub
+RUN curl -Lo /tmp/weatheroclock.zip \
+      "https://github.com/CleoMenezesJr/weather-oclock/releases/latest/download/weatheroclock@CleoMenezesJr.github.io.zip" && \
+    mkdir -p /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io && \
+    unzip /tmp/weatheroclock.zip \
+      -d /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io/ && \
+    rm /tmp/weatheroclock.zip && \
+    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 3: Bazaar — remover GNOME Software
+# BLOQUE 3: Gaming — Steam + ProtonPlus
 # ══════════════════════════════════════════════════════════════════
 
-RUN dnf remove -y gnome-software gnome-software-rpm-ostree || true && \
+RUN dnf install -y \
+    steam \
+    gamemode \
+    mangohud && \
     dnf clean all && \
     ostree container commit
 
@@ -72,7 +84,7 @@ RUN dnf install -y \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 6: Archivos de configuración
+# BLOQUE 5: Archivos de configuración
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/share/pixmaps/hecate-os.svg \
@@ -90,8 +102,11 @@ COPY config/files/etc/environment.d/50-rocm.conf \
 COPY config/files/etc/profile.d/hecate-os-fastfetch.sh \
      /etc/profile.d/hecate-os-fastfetch.sh
 
+COPY config/files/usr/share/backgrounds/hecate-os/ \
+     /usr/share/backgrounds/hecate-os/
+
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 7: Compilar schemas y dconf
+# BLOQUE 6: Compilar schemas y dconf
 # ══════════════════════════════════════════════════════════════════
 
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
@@ -99,7 +114,7 @@ RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 8: Flatpaks declarativos (se instalan en primer boot)
+# BLOQUE 7: Flatpaks (se instalan en primer boot)
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/flatpaks.txt /usr/share/ublue-os/firstboot/flatpaks

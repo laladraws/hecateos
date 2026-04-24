@@ -25,3 +25,6 @@ build/
 *.webp
 # Excepción: el SVG del logo sí va en el repo
 !config/files/usr/share/pixmaps/hecate-os.svg
+!config/files/usr/share/backgrounds/hecate-os/*.png
+!config/files/usr/share/backgrounds/hecate-os/*.png
+!config/files/usr/share/backgrounds/hecate-os/*.jpg
