@@ -129,8 +129,8 @@ COPY config/files/etc/profile.d/hecate-os-fastfetch.sh \
 
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     dconf update && \
-    ostree container commit# Symlink del logo para GNOME About y GDM
-    
+    ostree container commit Symlink del logo para GNOME About y GDM
+
 RUN ln -sf /usr/share/pixmaps/hecate-os.svg \
     /usr/share/icons/hicolor/scalable/apps/org.gnome.Software.svg && \
     ln -sf /usr/share/pixmaps/hecate-os.svg \
