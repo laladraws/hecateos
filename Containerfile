@@ -78,12 +78,6 @@ RUN dnf install -y \
 COPY config/files/usr/share/pixmaps/hecate-os.svg \
      /usr/share/pixmaps/hecate-os.svg
 
-COPY config/files/usr/share/backgrounds/hecate-os/ \
-     /usr/share/backgrounds/hecate-os/
-
-COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
-     /usr/share/gnome-background-properties/hecate-os.xml
-
 COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
      /usr/share/glib-2.0/schemas/99-hecate-os.gschema.override
 
