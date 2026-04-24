@@ -89,17 +89,15 @@ RUN dnf install -y \
 # BLOQUE 5: Flatpaks esenciales y remover GNOME Software
 # ══════════════════════════════════════════════════════════════════
 
-RUN dnf remove -y gnome-software gnome-software-rpm-ostree || true && \
-    dnf clean all && \
-    ostree container commit
 
-RUN flatpak remote-add --system --if-not-exists flathub \
-      https://dl.flathub.org/repo/flathub.flatpakrepo && \
-    flatpak install --system -y flathub \
-      io.github.kolunmi.Bazaar \
-      com.mattjakeman.ExtensionManager \
-      com.github.tchx84.Flatseal \
-      io.github.flattool.Warehouse && \
+COPY config/files/usr/lib/systemd/system/hecate-os-firstboot.service \
+     /usr/lib/systemd/system/hecate-os-firstboot.service
+
+COPY config/files/usr/bin/hecate-os-install-flatpaks.sh \
+     /usr/bin/hecate-os-install-flatpaks.sh
+
+RUN chmod +x /usr/bin/hecate-os-install-flatpaks.sh && \
+    systemctl enable hecate-os-firstboot.service && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════

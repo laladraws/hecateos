@@ -1,0 +1,15 @@
+[Unit]
+Description=HecateOS First Boot Flatpak Installation
+After=network-online.target flatpak-system-helper.service
+Wants=network-online.target
+ConditionPathExists=!/var/lib/hecate-os-firstboot-done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/hecate-os-install-flatpaks.sh
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
