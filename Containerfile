@@ -86,9 +86,19 @@ RUN git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroc
     rm -rf /tmp/weatheroclock && \
     ostree container commit
 
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 5: Gaming
+# ══════════════════════════════════════════════════════════════════
+
+RUN dnf install -y \
+    steam \
+    mangohud \
+    blender && \
+    dnf clean all && \
+    ostree container commit    
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 5: Configuración GNOME — extensiones por defecto
+# BLOQUE 6: Configuración GNOME — extensiones por defecto
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
@@ -103,30 +113,25 @@ COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     ostree container commit
 
-COPY config/files/usr/bin/hecate-os-install-flatpaks.sh \
-     /usr/bin/hecate-os-install-flatpaks.sh
 
-COPY config/files/etc/profile.d/hecate-os-flatpaks.sh \
-     /etc/profile.d/hecate-os-flatpaks.sh
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 7: Servicio de instalación de Flatpaks
+# ══════════════════════════════════════════════════════════════════
 
-RUN chmod +x /usr/bin/hecate-os-install-flatpaks.sh && \
-    chmod +x /etc/profile.d/hecate-os-flatpaks.sh && \
+COPY config/files/usr/libexec/hecate-os-install-flatpaks \
+     /usr/libexec/hecate-os-install-flatpaks
+
+COPY config/files/usr/lib/systemd/system/hecate-os-flatpaks.service \
+     /usr/lib/systemd/system/hecate-os-flatpaks.service
+
+RUN chmod +x /usr/libexec/hecate-os-install-flatpaks && \
+    systemctl enable hecate-os-flatpaks.service && \
     ostree container commit
 
 
-# ══════════════════════════════════════════════════════════════════
-# BLOQUE 6: Gaming
-# ══════════════════════════════════════════════════════════════════
-
-RUN dnf install -y \
-    steam \
-    mangohud \
-    blender && \
-    dnf clean all && \
-    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 7: Remover bloat
+# BLOQUE 8: Remover bloat
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf remove -y \
