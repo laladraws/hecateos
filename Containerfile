@@ -66,7 +66,21 @@ RUN dnf install -y \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 4: Extensiones de GNOME Shell
+# BLOQUE 4: Remover bloat
+# ══════════════════════════════════════════════════════════════════
+
+RUN dnf remove -y \
+    gnome-tour \
+    gnome-software \
+    gnome-software-rpm-ostree || true && \
+    rm -rf /usr/share/backgrounds/f43 \
+           /usr/share/backgrounds/fedora-workstation \
+           /usr/share/backgrounds/gnome && \
+    dnf clean all && \
+    ostree container commit
+
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 5: Extensiones de GNOME Shell
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
@@ -89,7 +103,7 @@ RUN git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroc
 
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 5: Tema visual — Nordic + Tela icons
+# BLOQUE 6: Tema visual — Nordic + Tela icons
 # ══════════════════════════════════════════════════════════════════
 
 # Nordic GTK theme
@@ -107,7 +121,7 @@ RUN git clone https://github.com/vinceliuice/Tela-icon-theme.git /tmp/tela && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 6: Gaming
+# BLOQUE 7: Gaming
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
@@ -118,7 +132,7 @@ RUN dnf install -y \
     ostree container commit    
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 7: Configuración GNOME — extensiones por defecto
+# BLOQUE 8: Configuración GNOME — extensiones por defecto
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
@@ -128,14 +142,25 @@ COPY config/files/usr/share/backgrounds/hecate-os/ \
      /usr/share/backgrounds/hecate-os/
 
 COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
-     /usr/share/gnome-background-properties/hecate-os.xml     
+     /usr/share/gnome-background-properties/hecate-os.xml
+
+COPY config/files/usr/share/pixmaps/hecate-os.svg \
+     /usr/share/pixmaps/hecate-os.svg
+
+COPY config/files/usr/share/pixmaps/hecate-os.png \
+     /usr/share/pixmaps/hecate-os.png
 
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
+    ln -sf /usr/share/pixmaps/hecate-os.png \
+    /usr/share/pixmaps/fedora-logo-sprite.png && \
+    ln -sf /usr/share/pixmaps/hecate-os.svg \
+    /usr/share/icons/hicolor/scalable/apps/fedora-logo.svg && \
     ostree container commit
 
 
+
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 8: Servicio de instalación de Flatpaks
+# BLOQUE 9: Servicio de instalación de Flatpaks
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/libexec/hecate-os-install-flatpaks \
@@ -150,16 +175,3 @@ RUN chmod +x /usr/libexec/hecate-os-install-flatpaks && \
 
 
 
-# ══════════════════════════════════════════════════════════════════
-# BLOQUE 9: Remover bloat
-# ══════════════════════════════════════════════════════════════════
-
-RUN dnf remove -y \
-    gnome-tour \
-    gnome-software \
-    gnome-software-rpm-ostree || true && \
-    rm -rf /usr/share/backgrounds/f43 \
-           /usr/share/backgrounds/fedora-workstation \
-           /usr/share/backgrounds/gnome && \
-    dnf clean all && \
-    ostree container commit
