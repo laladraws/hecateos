@@ -97,6 +97,9 @@ COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
 COPY config/files/usr/share/backgrounds/hecate-os/ \
      /usr/share/backgrounds/hecate-os/
 
+COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
+     /usr/share/gnome-background-properties/hecate-os.xml     
+
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     ostree container commit
 
