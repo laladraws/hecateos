@@ -155,6 +155,8 @@ RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     /usr/share/pixmaps/fedora-logo-sprite.png && \
     ln -sf /usr/share/pixmaps/hecate-os.svg \
     /usr/share/icons/hicolor/scalable/apps/fedora-logo.svg && \
+    ln -sf /usr/share/pixmaps/hecate-os.svg \
+    /usr/share/icons/hicolor/scalable/apps/hecate-os.svg && \
     ostree container commit
 
 
