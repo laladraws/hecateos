@@ -72,7 +72,8 @@ RUN dnf install -y \
 RUN dnf remove -y \
     gnome-tour \
     gnome-software \
-    gnome-software-rpm-ostree || true && \
+    gnome-software-rpm-ostree \
+    fedora-logos || true && \
     rm -rf /usr/share/backgrounds/f43 \
            /usr/share/backgrounds/fedora-workstation \
            /usr/share/backgrounds/gnome && \
