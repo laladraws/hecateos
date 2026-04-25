@@ -170,6 +170,14 @@ RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
        /usr/share/pixmaps/fedora-logo-sprite.svg && \
     ostree container commit
 
+    # Reemplazar distributor-logo de Fedora en todas las variantes de Tela
+RUN for dir in /usr/share/icons/Tela*/scalable/apps/; do \
+        cp /usr/share/pixmaps/hecate-os.svg \
+           "${dir}distributor-logo-fedora.svg"; \
+        cp /usr/share/pixmaps/hecate-os.svg \
+           "${dir}distributor-logo.svg"; \
+    done && \
+    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 9: Servicio de instalación de Flatpaks
