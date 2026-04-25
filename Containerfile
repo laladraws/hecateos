@@ -71,11 +71,8 @@ RUN dnf install -y \
 
 RUN dnf install -y \
     gnome-shell-extension-appindicator \
-    gnome-shell-extension-blur-my-shell \
     gnome-shell-extension-user-theme \
     gnome-shell-extension-dash-to-dock \
-    gnome-shell-extension-gsconnect \
-    gnome-shell-extension-caffeine \
     gnome-shell-extension-just-perfection && \
     dnf clean all && \
     ostree container commit
@@ -96,6 +93,9 @@ RUN git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroc
 
 COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
      /usr/share/glib-2.0/schemas/99-hecate-os.gschema.override
+
+COPY config/files/usr/share/backgrounds/hecate-os/ \
+     /usr/share/backgrounds/hecate-os/
 
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     ostree container commit
@@ -118,6 +118,7 @@ RUN dnf install -y \
 RUN dnf remove -y \
     gnome-tour \
     gnome-software \
-    gnome-software-rpm-ostree || true && \
+    gnome-software-rpm-ostree \
+    gnome-backgrounds || true && \
     dnf clean all && \
     ostree container commit
