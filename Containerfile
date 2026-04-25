@@ -103,6 +103,17 @@ COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     ostree container commit
 
+COPY config/files/usr/bin/hecate-os-install-flatpaks.sh \
+     /usr/bin/hecate-os-install-flatpaks.sh
+
+COPY config/files/etc/profile.d/hecate-os-flatpaks.sh \
+     /etc/profile.d/hecate-os-flatpaks.sh
+
+RUN chmod +x /usr/bin/hecate-os-install-flatpaks.sh && \
+    chmod +x /etc/profile.d/hecate-os-flatpaks.sh && \
+    ostree container commit
+
+
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 6: Gaming
 # ══════════════════════════════════════════════════════════════════
