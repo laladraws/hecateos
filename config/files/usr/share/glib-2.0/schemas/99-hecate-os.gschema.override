@@ -1,7 +1,10 @@
 [org.gnome.shell]
-enabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'just-perfection-desktop@just-perfection', 'weatheroclock@CleoMenezesJr.github.io']
+enabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'caffeine@patapon.info', 'just-perfection-desktop@just-perfection', 'weatheroclock@CleoMenezesJr.github.io']
 disabled-extensions=['apps-menu@gnome-shell-extensions.gcampax.github.com', 'places-menu@gnome-shell-extensions.gcampax.github.com', 'window-list@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'background-logo@fedorahosted.org', 'blur-my-shell@aunetx', 'gsconnect@andyholmes.github.io']
 disable-user-extensions=false
+
+[org.gnome.desktop.interface]
+color-scheme='prefer-dark'
 
 [org.gnome.desktop.background]
 picture-uri='file:///usr/share/backgrounds/hecate-os/fullmoon.png'
