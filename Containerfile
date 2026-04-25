@@ -121,7 +121,9 @@ RUN dnf install -y \
 RUN dnf remove -y \
     gnome-tour \
     gnome-software \
-    gnome-software-rpm-ostree \
-    gnome-backgrounds || true && \
+    gnome-software-rpm-ostree || true && \
+    rm -rf /usr/share/backgrounds/f43 \
+           /usr/share/backgrounds/fedora-workstation \
+           /usr/share/backgrounds/gnome && \
     dnf clean all && \
     ostree container commit
