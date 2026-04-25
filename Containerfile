@@ -86,8 +86,28 @@ RUN git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroc
     rm -rf /tmp/weatheroclock && \
     ostree container commit
 
+
+
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 5: Gaming
+# BLOQUE 5: Tema visual — Nordic + Tela icons
+# ══════════════════════════════════════════════════════════════════
+
+# Nordic GTK theme
+RUN mkdir -p /usr/share/themes && \
+    curl -Lo /tmp/nordic.tar.xz \
+      "https://github.com/EliverLara/Nordic/releases/latest/download/Nordic.tar.xz" && \
+    tar -xf /tmp/nordic.tar.xz -C /usr/share/themes/ && \
+    rm /tmp/nordic.tar.xz && \
+    ostree container commit
+
+# Tela icon theme
+RUN git clone https://github.com/vinceliuice/Tela-icon-theme.git /tmp/tela && \
+    bash /tmp/tela/install.sh -a && \
+    rm -rf /tmp/tela && \
+    ostree container commit
+
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 6: Gaming
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
@@ -98,7 +118,7 @@ RUN dnf install -y \
     ostree container commit    
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 6: Configuración GNOME — extensiones por defecto
+# BLOQUE 7: Configuración GNOME — extensiones por defecto
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
@@ -115,7 +135,7 @@ RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
 
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 7: Servicio de instalación de Flatpaks
+# BLOQUE 8: Servicio de instalación de Flatpaks
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/libexec/hecate-os-install-flatpaks \
@@ -131,7 +151,7 @@ RUN chmod +x /usr/libexec/hecate-os-install-flatpaks && \
 
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 8: Remover bloat
+# BLOQUE 9: Remover bloat
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf remove -y \

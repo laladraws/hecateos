@@ -4,6 +4,8 @@ disabled-extensions=['apps-menu@gnome-shell-extensions.gcampax.github.com', 'pla
 disable-user-extensions=false
 
 [org.gnome.desktop.interface]
+gtk-theme='Nordic'
+icon-theme='Tela-dark'
 color-scheme='prefer-dark'
 
 [org.gnome.desktop.background]
