@@ -171,7 +171,7 @@ COPY config/files/usr/lib/systemd/system/hecate-os-flatpaks.service \
 
 RUN chmod +x /usr/libexec/hecate-os-install-flatpaks && \
     systemctl enable hecate-os-flatpaks.service && \
-    ostree container commit
+    ostree container commit.
 
 
 

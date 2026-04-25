@@ -28,3 +28,5 @@ build/
 !config/files/usr/share/backgrounds/hecate-os/*.png
 !config/files/usr/share/backgrounds/hecate-os/*.png
 !config/files/usr/share/backgrounds/hecate-os/*.jpg
+!config/files/usr/share/pixmaps/hecate-os.png
+!config/files/usr/share/pixmaps/hecate-os-256.png
