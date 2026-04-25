@@ -66,7 +66,42 @@ RUN dnf install -y \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 4: Gaming
+# BLOQUE 4: Extensiones de GNOME Shell
+# ══════════════════════════════════════════════════════════════════
+
+RUN dnf install -y \
+    gnome-shell-extension-appindicator \
+    gnome-shell-extension-blur-my-shell \
+    gnome-shell-extension-user-theme \
+    gnome-shell-extension-dash-to-dock \
+    gnome-shell-extension-gsconnect \
+    gnome-shell-extension-caffeine \
+    gnome-shell-extension-just-perfection && \
+    dnf clean all && \
+    ostree container commit
+
+# Weather O'Clock desde GitHub
+RUN git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroclock && \
+    cp -r /tmp/weatheroclock/weatheroclock@CleoMenezesJr.github.io \
+      /usr/share/gnome-shell/extensions/ && \
+    glib-compile-schemas \
+      /usr/share/gnome-shell/extensions/weatheroclock@CleoMenezesJr.github.io/schemas/ && \
+    rm -rf /tmp/weatheroclock && \
+    ostree container commit
+
+
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 5: Configuración GNOME — extensiones por defecto
+# ══════════════════════════════════════════════════════════════════
+
+COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
+     /usr/share/glib-2.0/schemas/99-hecate-os.gschema.override
+
+RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
+    ostree container commit
+
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 6: Gaming
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
@@ -77,7 +112,7 @@ RUN dnf install -y \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 5: Remover bloat
+# BLOQUE 7: Remover bloat
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf remove -y \
