@@ -158,8 +158,17 @@ RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
        /usr/share/icons/hicolor/scalable/apps/start-here.svg && \
     cp /usr/share/pixmaps/hecate-os.png \
        /usr/share/pixmaps/fedora-logo-sprite.png && \
+    cp /usr/share/pixmaps/hecate-os.svg \
+       /usr/share/fedora-logos/fedora_logo.svg && \
+    cp /usr/share/pixmaps/hecate-os.svg \
+       /usr/share/fedora-logos/fedora_darkbackground.svg && \
+    cp /usr/share/pixmaps/hecate-os.svg \
+       /usr/share/fedora-logos/fedora_lightbackground.svg && \
+    cp /usr/share/pixmaps/hecate-os.svg \
+       /usr/share/fedora-logos/fedora_logo_darkbackground.svg && \
+    cp /usr/share/pixmaps/hecate-os.svg \
+       /usr/share/pixmaps/fedora-logo-sprite.svg && \
     ostree container commit
-
 
 
 # ══════════════════════════════════════════════════════════════════
