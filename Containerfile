@@ -68,12 +68,10 @@ RUN dnf install -y \
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 4: Remover bloat
 # ══════════════════════════════════════════════════════════════════
-
 RUN dnf remove -y \
     gnome-tour \
     gnome-software \
-    gnome-software-rpm-ostree \
-    fedora-logos || true && \
+    gnome-software-rpm-ostree || true && \
     rm -rf /usr/share/backgrounds/f43 \
            /usr/share/backgrounds/fedora-workstation \
            /usr/share/backgrounds/gnome && \
@@ -152,12 +150,12 @@ COPY config/files/usr/share/pixmaps/hecate-os.png \
      /usr/share/pixmaps/hecate-os.png
 
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
-    ln -sf /usr/share/pixmaps/hecate-os.png \
-    /usr/share/pixmaps/fedora-logo-sprite.png && \
-    ln -sf /usr/share/pixmaps/hecate-os.svg \
-    /usr/share/icons/hicolor/scalable/apps/fedora-logo.svg && \
-    ln -sf /usr/share/pixmaps/hecate-os.svg \
-    /usr/share/icons/hicolor/scalable/apps/hecate-os.svg && \
+    cp /usr/share/pixmaps/hecate-os.svg \
+       /usr/share/icons/hicolor/scalable/apps/fedora-logo.svg && \
+    cp /usr/share/pixmaps/hecate-os.svg \
+       /usr/share/icons/hicolor/scalable/apps/hecate-os.svg && \
+    cp /usr/share/pixmaps/hecate-os.png \
+       /usr/share/pixmaps/fedora-logo-sprite.png && \
     ostree container commit
 
 
