@@ -65,13 +65,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # ── Firma con cosign ──────────────────────────────────────────
-      - name: Install cosign
-        uses: sigstore/cosign-installer@v3
+#      - name: Install cosign
+#        uses: sigstore/cosign-installer@v3
 
-      - name: Sign image
-        run: |
-          cosign sign --yes \
-            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}
+#      - name: Sign image
+#        run: |
+#          cosign sign --yes \
+#            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}
 
   # ── Job separado para generar ISO en cada release ───────────────
   build-iso:
