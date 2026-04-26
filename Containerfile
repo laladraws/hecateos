@@ -132,6 +132,7 @@ RUN dnf install -y \
     steam \
     mangohud \
     blender && \
+    gamemode && \
     dnf clean all && \
     ostree container commit    
 
