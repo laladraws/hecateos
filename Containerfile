@@ -170,11 +170,14 @@ RUN rpm -e --nodeps fedora-logos && \
 # BLOQUE 9: Plymouth theme
 # ══════════════════════════════════════════════════════════════════
 
-RUN dnf install -y --nogpgcheck hecate-os-plymouth && \
+RUN dnf install -y \
+    plymouth \
+    plymouth-plugin-script \
+    plymouth-scripts && \
+    dnf install -y --nogpgcheck hecate-os-plymouth && \
     plymouth-set-default-theme hecate-os && \
     dnf clean all && \
     ostree container commit
-
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 10: Servicio de instalación de Flatpaks
 # ══════════════════════════════════════════════════════════════════
