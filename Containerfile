@@ -24,6 +24,14 @@ RUN dnf install -y \
     dnf clean all && \
     ostree container commit
 
+# ── Repo de HecateOS ─────────────────────────────────────────────
+RUN dnf install -y \
+    'dnf-command(config-manager)' && \
+    dnf config-manager --add-repo \
+    https://laladraws.github.io/persephone-repo/hecate-os/fedora/43/ && \
+    dnf clean all && \
+    ostree container commit    
+
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 2: Media, drivers y ROCm
 # ══════════════════════════════════════════════════════════════════
@@ -131,7 +139,7 @@ RUN dnf install -y \
     ostree container commit    
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 8: Configuración GNOME — extensiones por defecto
+# BLOQUE 8: Configuración GNOME y logos
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/share/glib-2.0/schemas/99-hecate-os.gschema.override \
@@ -143,40 +151,12 @@ COPY config/files/usr/share/backgrounds/hecate-os/ \
 COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
      /usr/share/gnome-background-properties/hecate-os.xml
 
-COPY config/files/usr/share/pixmaps/hecate-os.svg \
-     /usr/share/pixmaps/hecate-os.svg
-
-COPY config/files/usr/share/pixmaps/hecate-os.png \
-     /usr/share/pixmaps/hecate-os.png
-
-RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/icons/hicolor/scalable/apps/fedora-logo.svg && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/icons/hicolor/scalable/apps/hecate-os.svg && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/icons/hicolor/scalable/apps/start-here.svg && \
-    cp /usr/share/pixmaps/hecate-os.png \
-       /usr/share/pixmaps/fedora-logo-sprite.png && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/fedora-logos/fedora_logo.svg && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/fedora-logos/fedora_darkbackground.svg && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/fedora-logos/fedora_lightbackground.svg && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/fedora-logos/fedora_logo_darkbackground.svg && \
-    cp /usr/share/pixmaps/hecate-os.svg \
-       /usr/share/pixmaps/fedora-logo-sprite.svg && \
+# Logos — reemplaza fedora-logos correctamente via RPM
+RUN dnf install -y --nogpgcheck hecate-os-logos && \
+    dnf clean all && \
     ostree container commit
 
-    # Reemplazar distributor-logo de Fedora en todas las variantes de Tela
-RUN for dir in /usr/share/icons/Tela*/scalable/apps/; do \
-        cp /usr/share/pixmaps/hecate-os.svg \
-           "${dir}distributor-logo-fedora.svg"; \
-        cp /usr/share/pixmaps/hecate-os.svg \
-           "${dir}distributor-logo.svg"; \
-    done && \
+RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
