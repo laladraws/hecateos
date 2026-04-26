@@ -28,7 +28,7 @@ RUN dnf install -y \
 RUN echo -e "[hecate-os]\nname=HecateOS\nbaseurl=https://laladraws.github.io/persephone-repo/hecate-os/fedora/43/\nenabled=1\ngpgcheck=0" \
     > /etc/yum.repos.d/hecate-os.repo && \
     ostree container commit
-    
+
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 2: Media, drivers y ROCm
 # ══════════════════════════════════════════════════════════════════
@@ -149,7 +149,9 @@ COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
      /usr/share/gnome-background-properties/hecate-os.xml
 
 # Logos — reemplaza fedora-logos correctamente via RPM
-RUN dnf install -y --nogpgcheck hecate-os-logos && \
+# Logos — reemplaza fedora-logos correctamente via RPM
+RUN dnf remove -y fedora-logos && \
+    dnf install -y --nogpgcheck hecate-os-logos && \
     dnf clean all && \
     ostree container commit
 
