@@ -25,13 +25,10 @@ RUN dnf install -y \
     ostree container commit
 
 # ── Repo de HecateOS ─────────────────────────────────────────────
-RUN dnf install -y \
-    'dnf-command(config-manager)' && \
-    dnf config-manager --add-repo \
-    https://laladraws.github.io/persephone-repo/hecate-os/fedora/43/ && \
-    dnf clean all && \
-    ostree container commit    
-
+RUN echo -e "[hecate-os]\nname=HecateOS\nbaseurl=https://laladraws.github.io/persephone-repo/hecate-os/fedora/43/\nenabled=1\ngpgcheck=0" \
+    > /etc/yum.repos.d/hecate-os.repo && \
+    ostree container commit
+    
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 2: Media, drivers y ROCm
 # ══════════════════════════════════════════════════════════════════
