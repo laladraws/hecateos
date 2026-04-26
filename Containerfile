@@ -178,6 +178,7 @@ RUN dnf install -y \
     plymouth-set-default-theme hecate-os && \
     dnf clean all && \
     ostree container commit
+    
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 10: Servicio de instalación de Flatpaks
 # ══════════════════════════════════════════════════════════════════
