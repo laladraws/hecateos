@@ -150,7 +150,8 @@ COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
 
 
 # Logos — reemplaza fedora-logos correctamente via RPM sad dsf
-RUN dnf install -y --nogpgcheck --allowerasing hecate-os-logos && \
+RUN rpm -e --nodeps fedora-logos && \
+    dnf install -y --nogpgcheck hecate-os-logos && \
     dnf clean all && \
     ostree container commit
 
