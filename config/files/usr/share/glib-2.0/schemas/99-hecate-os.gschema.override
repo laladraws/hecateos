@@ -19,4 +19,4 @@ primary-color='#2E3440'
 
 [org.gnome.desktop.screensaver]
 picture-uri='file:///usr/share/backgrounds/hecate-os/fullmoon.png'
-primary-color='#2E3440'
+#primary-color='#2E3440'sys
