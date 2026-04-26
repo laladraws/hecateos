@@ -166,9 +166,17 @@ RUN rpm -e --nodeps fedora-logos && \
     RUN gtk-update-icon-cache -f -t /usr/share/icons/hicolor/ && \
     ostree container commit
 
+# ══════════════════════════════════════════════════════════════════
+# BLOQUE 9: Plymouth theme
+# ══════════════════════════════════════════════════════════════════
+
+RUN dnf install -y --nogpgcheck hecate-os-plymouth && \
+    plymouth-set-default-theme hecate-os && \
+    dnf clean all && \
+    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 9: Servicio de instalación de Flatpaks
+# BLOQUE 10: Servicio de instalación de Flatpaks
 # ══════════════════════════════════════════════════════════════════
 
 COPY config/files/usr/libexec/hecate-os-install-flatpaks \
