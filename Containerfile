@@ -157,10 +157,10 @@ RUN rpm -e --nodeps fedora-logos && \
         [ -d "$dir" ] && cp /usr/share/pixmaps/hecate-os.svg "${dir}hecate-os.svg" || true; \
         [ -d "$dir" ] && cp /usr/share/pixmaps/hecate-os.svg "${dir}distributor-logo-fedora.svg" || true; \
     done && \
+    for theme in /usr/share/icons/Tela*/; do \
+        gtk-update-icon-cache -f "${theme}" || true; \
+    done && \
     gtk-update-icon-cache -f /usr/share/icons/hicolor/ || true && \
-    ostree container commit
-
-RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
