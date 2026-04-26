@@ -180,6 +180,11 @@ RUN dnf install -y \
     dnf clean all && \
     ostree container commit
 
+RUN echo 'add_drivers+=" plymouth-plugin-script "' \
+    > /etc/dracut.conf.d/hecate-os-plymouth.conf && \
+    echo 'install_items+=" /usr/share/plymouth/themes/hecate-os "' \
+    >> /etc/dracut.conf.d/hecate-os-plymouth.conf && \
+    ostree container commit
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 10: Servicio de instalación de Flatpaks
 # ══════════════════════════════════════════════════════════════════
