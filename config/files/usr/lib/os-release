@@ -9,7 +9,7 @@ PLATFORM_ID="platform:f43"
 HOME_URL="https://github.com/tu-usuario/hecate-os"
 SUPPORT_URL="https://github.com/tu-usuario/hecate-os/issues"
 BUG_REPORT_URL="https://github.com/tu-usuario/hecate-os/issues"
-LOGO="hecate-os-logo-icon"
+LOGO="fedora-logo-icon"
 ANSI_COLOR="1;34"
 DEFAULT_HOSTNAME="hecate"
 # Necesario para compatibilidad con herramientas de Fedora

@@ -149,7 +149,7 @@ COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
      /usr/share/gnome-background-properties/hecate-os.xml
 
 
-# Logos — reemplaza fedora-logos correctamente via RPM sad dsf testr
+
 RUN rpm -e --nodeps fedora-logos && \
     dnf install -y --nogpgcheck hecate-os-logos && \
     dnf clean all && \
@@ -162,6 +162,10 @@ RUN rpm -e --nodeps fedora-logos && \
     done && \
     gtk-update-icon-cache -f /usr/share/icons/hicolor/ || true && \
     ostree container commit
+
+    RUN gtk-update-icon-cache -f -t /usr/share/icons/hicolor/ && \
+    ostree container commit
+
 
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 9: Servicio de instalación de Flatpaks
