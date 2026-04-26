@@ -153,6 +153,11 @@ COPY config/files/usr/share/gnome-background-properties/hecate-os.xml \
 RUN rpm -e --nodeps fedora-logos && \
     dnf install -y --nogpgcheck hecate-os-logos && \
     dnf clean all && \
+    for dir in /usr/share/icons/Tela*/scalable/apps/; do \
+        [ -d "$dir" ] && cp /usr/share/pixmaps/hecate-os.svg "${dir}hecate-os.svg" || true; \
+        [ -d "$dir" ] && cp /usr/share/pixmaps/hecate-os.svg "${dir}distributor-logo-fedora.svg" || true; \
+    done && \
+    gtk-update-icon-cache -f /usr/share/icons/hicolor/ || true && \
     ostree container commit
 
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
