@@ -167,7 +167,7 @@ RUN rpm -e --nodeps fedora-logos && \
     ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 9: Plymouth theme
+# BLOQUE 9: Plymouth theme actualization
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
