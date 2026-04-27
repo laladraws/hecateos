@@ -1,0 +1,15 @@
+[Unit]
+Description=HecateOS Install Bazaar
+After=network-online.target flatpak-system-helper.service
+Wants=network-online.target
+ConditionPathExists=!/etc/hecate-os-bazaar-done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/hecate-os-install-bazaar
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

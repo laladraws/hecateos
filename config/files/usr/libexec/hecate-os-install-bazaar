@@ -1,0 +1,7 @@
+#!/bin/bash
+
+flatpak remote-delete --system flathub 2>/dev/null || true
+flatpak remote-add --system --if-not-exists flathub \
+    https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --system -y flathub io.github.kolunmi.Bazaar || true
+touch /etc/hecate-os-bazaar-done
