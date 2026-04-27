@@ -24,7 +24,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-      id-token: write  # necesario para cosign OIDC
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -37,8 +37,6 @@ jobs:
           echo "tags=latest" >> $GITHUB_OUTPUT
           echo "tag_version=${FEDORA_VERSION}" >> $GITHUB_OUTPUT
           echo "tag_dated=${FEDORA_VERSION}-${TIMESTAMP}" >> $GITHUB_OUTPUT
-
-      # ── Build ─────────────────────────────────────────────────────
 
       - name: Build image
         id: build
@@ -53,8 +51,7 @@ jobs:
           build-args: |
             FEDORA_VERSION=${{ env.FEDORA_VERSION }}
           oci: true
-          
-      # ── Push ──────────────────────────────────────────────────────
+
       - name: Push to GHCR
         id: push
         uses: redhat-actions/push-to-registry@v2
@@ -65,16 +62,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # ── Firma con cosign ──────────────────────────────────────────
-#      - name: Install cosign
-#        uses: sigstore/cosign-installer@v3
-
-#      - name: Sign image
-#        run: |
-#          cosign sign --yes \
-#            ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}
-
-  # ── Job separado para generar ISO en cada release ───────────────
   build-iso:
     runs-on: ubuntu-latest
     needs: build-and-push
@@ -105,7 +92,6 @@ jobs:
           path: ${{ steps.iso.outputs.iso_path }}
           retention-days: 14
 
-      # En releases con tag, subir la ISO como release asset
       - name: Upload ISO to release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
