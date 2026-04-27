@@ -112,10 +112,8 @@ RUN git clone https://github.com/CleoMenezesJr/weather-oclock.git /tmp/weatheroc
 
 # Nordic GTK theme
 RUN mkdir -p /usr/share/themes && \
-    curl -Lo /tmp/nordic.tar.xz \
-      "https://github.com/EliverLara/Nordic/releases/latest/download/Nordic.tar.xz" && \
-    tar -xf /tmp/nordic.tar.xz -C /usr/share/themes/ && \
-    rm /tmp/nordic.tar.xz && \
+    git clone --depth 1 https://github.com/EliverLara/Nordic.git \
+      /usr/share/themes/Nordic && \
     ostree container commit
 
 # Tela icon theme
