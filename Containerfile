@@ -176,6 +176,7 @@ RUN dnf install -y \
     plymouth-scripts && \
     dnf install -y --nogpgcheck hecate-os-plymouth hecate-os-firstboot && \
     plymouth-set-default-theme hecate-os && \
+    chmod +x /usr/libexec/hecate-os-firstboot && \
     systemctl enable hecate-os-firstboot.service && \
     dnf clean all && \
     ostree container commit
