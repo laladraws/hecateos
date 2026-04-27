@@ -160,9 +160,22 @@ RUN rpm -e --nodeps fedora-logos && \
     gtk-update-icon-cache -f /usr/share/icons/hicolor/ || true && \
     ostree container commit
 
+    # ══════════════════════════════════════════════════════════════════
+# BLOQUE 9: Servicio firstboot — instalar Bazaar
+# ══════════════════════════════════════════════════════════════════
+
+COPY config/files/usr/lib/systemd/system/hecate-os-bazaar.service \
+     /usr/lib/systemd/system/hecate-os-bazaar.service
+
+COPY config/files/usr/libexec/hecate-os-install-bazaar \
+     /usr/libexec/hecate-os-install-bazaar
+
+RUN chmod +x /usr/libexec/hecate-os-install-bazaar && \
+    systemctl enable hecate-os-bazaar.service && \
+    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 9: Plymouth theme actualization
+# BLOQUE 9.5: Plymouth theme actualization
 # ══════════════════════════════════════════════════════════════════
 
 RUN dnf install -y \
