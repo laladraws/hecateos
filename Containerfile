@@ -1,6 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════╗
-# ║                        HecateOS                             ║
-# ║                       Fase 1 — Base                         ║
+# ║                        HecateOS                              ║
 # ╚══════════════════════════════════════════════════════════════╝
 ARG BASE_IMAGE="ghcr.io/ublue-os/silverblue-main"
 ARG FEDORA_VERSION="43"
@@ -161,8 +160,6 @@ RUN rpm -e --nodeps fedora-logos && \
     gtk-update-icon-cache -f /usr/share/icons/hicolor/ || true && \
     ostree container commit
 
-    RUN gtk-update-icon-cache -f -t /usr/share/icons/hicolor/ && \
-    ostree container commit
 
 # ══════════════════════════════════════════════════════════════════
 # BLOQUE 9: Plymouth theme actualization
@@ -185,19 +182,12 @@ RUN echo 'add_drivers+=" plymouth-plugin-script "' \
     >> /etc/dracut.conf.d/hecate-os-plymouth.conf && \
     ostree container commit
     
+
 # ══════════════════════════════════════════════════════════════════
-# BLOQUE 10: Servicio de instalación de Flatpaks
+# BLOQUE 10: Compilar schemas
 # ══════════════════════════════════════════════════════════════════
 
-COPY config/files/usr/libexec/hecate-os-install-flatpaks \
-     /usr/libexec/hecate-os-install-flatpaks
-
-COPY config/files/usr/lib/systemd/system/hecate-os-flatpaks.service \
-     /usr/lib/systemd/system/hecate-os-flatpaks.service
-
-RUN chmod +x /usr/libexec/hecate-os-install-flatpaks && \
-    systemctl enable hecate-os-flatpaks.service && \
+RUN glib-compile-schemas /usr/share/glib-2.0/schemas && \
+    dconf update && \
     ostree container commit
-
-
 
